@@ -1,0 +1,1055 @@
+{
+	"info": {
+		"_postman_id": "929f5172-7bcf-4bbe-81f1-6ca8eea61426",
+		"name": "Product API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20465186"
+	},
+	"item": [
+		{
+			"name": "Insert Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has the required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.have.property('correlationid');\r",
+							"    pm.expect(responseData).to.have.property('success');\r",
+							"    pm.expect(responseData).to.have.property('error');\r",
+							"    pm.expect(responseData).to.have.property('tin');\r",
+							"    pm.expect(responseData).to.have.property('tout');\r",
+							"    pm.expect(responseData).to.have.property('data');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Name is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.data.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Price is a non-negative integer\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.data.price).to.be.a('number');\r",
+							"    pm.expect(responseData.data.price).to.be.at.least(0);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Stock is a non-negative integer\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.have.property('data');\r",
+							"    pm.expect(responseData.data.stock).to.be.a('number');\r",
+							"    pm.expect(responseData.data.stock).to.be.at.least(0);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response Content-Type is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Correlationid is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.correlationid).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Correlationid should not be empty\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Image_url is a valid URL\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.data.image_url).to.match(/^https?:\\/\\/.+\\..+/);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Data object has the required fields - CreatedAt, UpdatedAt, and ID\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.data).to.be.an('object');\r",
+							"    pm.expect(responseData.data).to.have.property('CreatedAt');\r",
+							"    pm.expect(responseData.data).to.have.property('UpdatedAt');\r",
+							"    pm.expect(responseData.data).to.have.property('ID');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Celana\",\r\n    \"price\": 200000,\r\n    \"stock\": 50,\r\n    \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/product",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Insert Product",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Baju santai\",\r\n    \"price\": 150000,\r\n    \"stock\": 50,\r\n    \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/product",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 14 Jan 2024 07:17:25 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "499"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"correlationid\": \"88402906-6b43-4aec-82af-e423426b5963\",\n    \"data\": {\n        \"CreatedAt\": \"2024-01-14T14:17:26.1775438+07:00\",\n        \"UpdatedAt\": \"2024-01-14T14:17:26.1775438+07:00\",\n        \"DeletedAt\": null,\n        \"ID\": \"12cf2443-802c-417b-8ece-5503a9fc1b22\",\n        \"name\": \"Baju santai\",\n        \"price\": 150000,\n        \"stock\": 50,\n        \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n    },\n    \"error\": \"\",\n    \"success\": true,\n    \"tin\": \"2024-01-14T14:17:26.16304+07:00\",\n    \"tout\": \"2024-01-14T14:17:26.1796323+07:00\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has the required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('correlationid');\r",
+							"    pm.expect(responseData).to.have.property('data');\r",
+							"    pm.expect(responseData).to.have.property('error');\r",
+							"    pm.expect(responseData).to.have.property('success');\r",
+							"    pm.expect(responseData).to.have.property('tin');\r",
+							"    pm.expect(responseData).to.have.property('tout');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"List array is present and contains expected number of elements\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.data.list).to.exist;\r",
+							"    pm.expect(responseData.data.list).to.be.an('array');\r",
+							"    pm.expect(responseData.data.list).to.have.lengthOf.at.least(1);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Duration is a non-negative number\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData).to.be.an('object');\r",
+							"  pm.expect(responseData.data).to.be.an('object');\r",
+							"  pm.expect(responseData.data.duration).to.be.a('number');\r",
+							"  pm.expect(responseData.data.duration).to.be.at.least(0, \"Duration should be a non-negative number\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Price and stock are non-negative integers\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  const productList = responseData.data.list;\r",
+							"\r",
+							"  productList.forEach(function(product) {\r",
+							"    pm.expect(product.price).to.be.a('number').and.to.be.at.least(0, \"Price should be non-negative\");\r",
+							"    pm.expect(product.stock).to.be.a('number').and.to.be.at.least(0, \"Stock should be non-negative\");\r",
+							"  });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Image_url is a valid URL format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.list).to.be.an('array');\r",
+							"    responseData.data.list.forEach(function(product) {\r",
+							"        pm.expect(product.image_url).to.match(/^http(s)?:\\/\\/.+\\..+/);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Page and page_size are non-negative integers\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.data.page).to.be.a('number').and.to.be.at.least(0);\r",
+							"    pm.expect(responseData.data.page_size).to.be.a('number').and.to.be.at.least(0);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Total_items and total_pages are non-negative integers\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData.data.total_items).to.be.a('number').and.to.be.at.least(0);\r",
+							"  pm.expect(responseData.data.total_pages).to.be.a('number').and.to.be.at.least(0);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/product?page=1&limit=20",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Product",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/product?page=1&limit=20",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 14 Jan 2024 07:55:14 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "3591"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"correlationid\": \"dd26ea45-09ee-453d-bde3-22a441ab249f\",\n    \"data\": {\n        \"duration\": \"9.817100 ms\",\n        \"finish\": \"2024-01-14T14:55:15.1979455+07:00\",\n        \"list\": [\n            {\n                \"CreatedAt\": \"2024-01-14T14:08:41.22339+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:08:41.22339+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"929c8bab-eb73-4172-95ff-08f3f5317c4b\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:08:44.676705+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:08:44.676705+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"ab878383-c16b-40aa-8b00-7dccabcc8ac3\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:08:45.944657+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:08:45.944657+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"f650cede-896a-4226-9516-faa4da37a510\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:08:47.231529+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:08:47.231529+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"28a879f9-6304-4e09-9011-1c3429839c0e\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:08:48.505302+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:08:48.505302+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"35be059b-63f8-4bff-9137-0530a3264413\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:15:06.435791+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:15:06.435791+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"9c31675d-c978-4a79-9c21-4bb9345040af\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:17:26.177543+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:17:26.177543+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"12cf2443-802c-417b-8ece-5503a9fc1b22\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:17:56.508642+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:17:56.508642+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"2a78584a-d821-46fc-ab01-831cf22351d9\",\n                \"name\": \"\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:28:01.328308+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:28:01.328308+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"8e0d3089-0c51-4056-bf78-a14ec12e584c\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:54:55.03355+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:54:55.03355+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"17679895-74ee-4f15-9eff-fe14fd1895cd\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            }\n        ],\n        \"page\": 1,\n        \"page_size\": 20,\n        \"start\": \"2024-01-14T14:55:15.1881284+07:00\",\n        \"total_items\": 10,\n        \"total_pages\": 1\n    },\n    \"error\": \"\",\n    \"success\": true,\n    \"tin\": \"2024-01-14T14:55:15.1881284+07:00\",\n    \"tout\": \"2024-01-14T14:55:15.1979455+07:00\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get One",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/product/1d376cf1-5917-481a-a123-3a6ba30ed658",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product",
+						"1d376cf1-5917-481a-a123-3a6ba30ed658"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get One",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/product/929c8bab-eb73-4172-95ff-08f3f5317c4b",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product",
+								"929c8bab-eb73-4172-95ff-08f3f5317c4b"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 14 Jan 2024 07:55:30 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "486"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"correlationid\": \"d426ce9a-ad1d-401a-9e56-ef20f582adbb\",\n    \"success\": true,\n    \"tin\": \"2024-01-14T14:55:31.1382153+07:00\",\n    \"tout\": \"2024-01-14T14:55:31.1495988+07:00\",\n    \"data\": {\n        \"CreatedAt\": \"2024-01-14T14:08:41.22339+07:00\",\n        \"UpdatedAt\": \"2024-01-14T14:08:41.22339+07:00\",\n        \"DeletedAt\": null,\n        \"ID\": \"929c8bab-eb73-4172-95ff-08f3f5317c4b\",\n        \"name\": \"Baju santai\",\n        \"price\": 150000,\n        \"stock\": 50,\n        \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Search product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has the required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('correlationid');\r",
+							"    pm.expect(responseData).to.have.property('data');\r",
+							"    pm.expect(responseData).to.have.property('error');\r",
+							"    pm.expect(responseData).to.have.property('success');\r",
+							"    pm.expect(responseData).to.have.property('tin');\r",
+							"    pm.expect(responseData).to.have.property('tout');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"List array is present and contains expected number of elements\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.data.list).to.exist.and.to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Name is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.data.list).to.be.an('array');\r",
+							"    \r",
+							"    responseData.data.list.forEach(function(item) {\r",
+							"        pm.expect(item.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Image_url is a valid URL format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    responseData.data.list.forEach(function(item) {\r",
+							"        pm.expect(item.image_url).to.match(/^https?:\\/\\/\\S+/);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Total_items and total_pages are non-negative integers\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData.data.total_items).to.be.a('number').and.to.be.at.least(0);\r",
+							"    pm.expect(responseData.data.total_pages).to.be.a('number').and.to.be.at.least(0);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/product?q=baju",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "baju"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Search product",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/product/search?q=baju",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "baju"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 14 Jan 2024 07:55:41 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "3277"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "    \"correlationid\": \"eff7b47d-688f-43dd-b50d-fd5b9ecb5c32\",\n    \"data\": {\n        \"duration\": \"13.876200 ms\",\n        \"finish\": \"2024-01-14T14:55:41.5825827+07:00\",\n        \"list\": [\n            {\n                \"CreatedAt\": \"2024-01-14T14:08:41.22339+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:08:41.22339+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"929c8bab-eb73-4172-95ff-08f3f5317c4b\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:08:44.676705+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:08:44.676705+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"ab878383-c16b-40aa-8b00-7dccabcc8ac3\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:08:45.944657+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:08:45.944657+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"f650cede-896a-4226-9516-faa4da37a510\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:08:47.231529+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:08:47.231529+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"28a879f9-6304-4e09-9011-1c3429839c0e\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:08:48.505302+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:08:48.505302+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"35be059b-63f8-4bff-9137-0530a3264413\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:15:06.435791+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:15:06.435791+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"9c31675d-c978-4a79-9c21-4bb9345040af\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:17:26.177543+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:17:26.177543+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"12cf2443-802c-417b-8ece-5503a9fc1b22\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:28:01.328308+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:28:01.328308+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"8e0d3089-0c51-4056-bf78-a14ec12e584c\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T14:54:55.03355+07:00\",\n                \"UpdatedAt\": \"2024-01-14T14:54:55.03355+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"17679895-74ee-4f15-9eff-fe14fd1895cd\",\n                \"name\": \"Baju santai\",\n                \"price\": 150000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            }\n        ],\n        \"page\": 1,\n        \"page_size\": 5,\n        \"start\": \"2024-01-14T14:55:41.5687065+07:00\",\n        \"total_items\": 10,\n        \"total_pages\": 2\n    },\n    \"error\": \"\",\n    \"success\": true,\n    \"tin\": \"2024-01-14T14:55:41.5687065+07:00\",\n    \"tout\": \"2024-01-14T14:55:41.5825827+07:00\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Search Product (Price Range)",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/product?priceFrom=80000&priceTo=100000",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product"
+					],
+					"query": [
+						{
+							"key": "priceFrom",
+							"value": "80000"
+						},
+						{
+							"key": "priceTo",
+							"value": "100000"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Search Product (Price Range)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/product?priceFrom=80000&priceTo=100000",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product"
+							],
+							"query": [
+								{
+									"key": "priceFrom",
+									"value": "80000"
+								},
+								{
+									"key": "priceTo",
+									"value": "100000"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 14 Jan 2024 08:27:46 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "999"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"correlationid\": \"42d8239b-6cd9-406a-ab99-f7a6da864c02\",\n    \"data\": {\n        \"duration\": \"5.682500 ms\",\n        \"finish\": \"2024-01-14T15:27:46.6617387+07:00\",\n        \"list\": [\n            {\n                \"CreatedAt\": \"2024-01-14T15:27:23.788603+07:00\",\n                \"UpdatedAt\": \"2024-01-14T15:27:23.788603+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"688f8333-ffd7-40e9-bf4a-608bc4dc0b4c\",\n                \"name\": \"Baju santai\",\n                \"price\": 100000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T15:27:33.867129+07:00\",\n                \"UpdatedAt\": \"2024-01-14T15:27:33.867129+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"869f820d-f4dd-4640-9d8b-a2fab586a8f6\",\n                \"name\": \"Kemeja\",\n                \"price\": 80000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            }\n        ],\n        \"page\": 1,\n        \"page_size\": 5,\n        \"start\": \"2024-01-14T15:27:46.6560562+07:00\",\n        \"total_items\": 20,\n        \"total_pages\": 4\n    },\n    \"error\": \"\",\n    \"success\": true,\n    \"tin\": \"2024-01-14T15:27:46.6560562+07:00\",\n    \"tout\": \"2024-01-14T15:27:46.6617387+07:00\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Search Product (Price Lower)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/product?priceTo=100000",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product"
+					],
+					"query": [
+						{
+							"key": "priceTo",
+							"value": "100000"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Search Product (Price Lower)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/product?priceTo=100000",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product"
+							],
+							"query": [
+								{
+									"key": "priceTo",
+									"value": "100000"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 14 Jan 2024 08:28:11 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1000"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"correlationid\": \"4baf0a6b-133a-4905-a9ce-9cf4dc9b5fc5\",\n    \"data\": {\n        \"duration\": \"13.090000 ms\",\n        \"finish\": \"2024-01-14T15:28:12.0845154+07:00\",\n        \"list\": [\n            {\n                \"CreatedAt\": \"2024-01-14T15:27:23.788603+07:00\",\n                \"UpdatedAt\": \"2024-01-14T15:27:23.788603+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"688f8333-ffd7-40e9-bf4a-608bc4dc0b4c\",\n                \"name\": \"Baju santai\",\n                \"price\": 100000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            },\n            {\n                \"CreatedAt\": \"2024-01-14T15:27:33.867129+07:00\",\n                \"UpdatedAt\": \"2024-01-14T15:27:33.867129+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"869f820d-f4dd-4640-9d8b-a2fab586a8f6\",\n                \"name\": \"Kemeja\",\n                \"price\": 80000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            }\n        ],\n        \"page\": 1,\n        \"page_size\": 5,\n        \"start\": \"2024-01-14T15:28:12.0714254+07:00\",\n        \"total_items\": 20,\n        \"total_pages\": 4\n    },\n    \"error\": \"\",\n    \"success\": true,\n    \"tin\": \"2024-01-14T15:28:12.0714254+07:00\",\n    \"tout\": \"2024-01-14T15:28:12.0845154+07:00\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Search Product (Price Lower, Name)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/product?priceFrom=100000&q=celana",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product"
+					],
+					"query": [
+						{
+							"key": "priceFrom",
+							"value": "100000"
+						},
+						{
+							"key": "q",
+							"value": "celana"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Search Product (Price Lower, Name)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/product?priceFrom=100000&q=celana",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product"
+							],
+							"query": [
+								{
+									"key": "priceFrom",
+									"value": "100000"
+								},
+								{
+									"key": "q",
+									"value": "celana"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 14 Jan 2024 08:28:57 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "676"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"correlationid\": \"c03b8b43-d64c-408a-93a7-c56a0935a7f8\",\n    \"data\": {\n        \"duration\": \"20.989700 ms\",\n        \"finish\": \"2024-01-14T15:28:57.2079901+07:00\",\n        \"list\": [\n            {\n                \"CreatedAt\": \"2024-01-14T15:27:41.816139+07:00\",\n                \"UpdatedAt\": \"2024-01-14T15:27:41.816139+07:00\",\n                \"DeletedAt\": null,\n                \"ID\": \"0fc65eb9-717f-4b49-bb18-fe53661aef6a\",\n                \"name\": \"Celana\",\n                \"price\": 200000,\n                \"stock\": 50,\n                \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%3A989410572514758676%3E\"\n            }\n        ],\n        \"page\": 1,\n        \"page_size\": 5,\n        \"start\": \"2024-01-14T15:28:57.1870004+07:00\",\n        \"total_items\": 20,\n        \"total_pages\": 4\n    },\n    \"error\": \"\",\n    \"success\": true,\n    \"tin\": \"2024-01-14T15:28:57.1870004+07:00\",\n    \"tout\": \"2024-01-14T15:28:57.2079901+07:00\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Product",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Sandal Swallow\",\r\n    \"price\": 13000,\r\n    \"stock\": 30,\r\n    \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/product/1d376cf1-5917-481a-a123-3a6ba30ed658",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product",
+						"1d376cf1-5917-481a-a123-3a6ba30ed658"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Product",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sandal Swallow\",\r\n    \"price\": 13000,\r\n    \"stock\": 30,\r\n    \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/product/1d376cf1-5917-481a-a123-3a6ba30ed658",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product",
+								"1d376cf1-5917-481a-a123-3a6ba30ed658"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 14 Jan 2024 08:30:05 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "467"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"correlationid\": \"155a80e7-f3ea-4446-9d33-69b858fd0ede\",\n    \"success\": true,\n    \"error\": \"\",\n    \"tin\": \"2024-01-14T15:30:05.8108641+07:00\",\n    \"tout\": \"2024-01-14T15:30:05.8330064+07:00\",\n    \"data\": {\n        \"CreatedAt\": \"0001-01-01T00:00:00Z\",\n        \"UpdatedAt\": \"2024-01-14T15:30:05.8263613+07:00\",\n        \"DeletedAt\": null,\n        \"ID\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"Sandal Swallow\",\n        \"price\": 13000,\n        \"stock\": 30,\n        \"image_url\": \"https://fakeimg.pl/340x230/282828/eae0d0/?retina=1&text=Problem?%20%3C%3Apepw%\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Product",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/product/929c8bab-eb73-4172-95ff-08f3f5317c4b",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"product",
+						"929c8bab-eb73-4172-95ff-08f3f5317c4b"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Product",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/product/929c8bab-eb73-4172-95ff-08f3f5317c4b",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"product",
+								"929c8bab-eb73-4172-95ff-08f3f5317c4b"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 14 Jan 2024 08:33:01 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "179"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"correlationid\": \"ae86ac8a-5143-41a8-a33a-d23316f0dd53\",\n    \"success\": true,\n    \"error\": \"\",\n    \"tin\": \"2024-01-14T15:33:02.7631788+07:00\",\n    \"tout\": \"2024-01-14T15:33:02.7770284+07:00\",\n    \"data\": null\n}"
+				}
+			]
+		}
+	]
+}
