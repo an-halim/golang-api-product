@@ -17,6 +17,7 @@ type Product struct {
 type Products struct {
  Products []Product `json:"Products"`
 }
+
 func (product *Product) BeforeCreate(tx *gorm.DB) (err error) {
 
  product.ID = uuid.New()
