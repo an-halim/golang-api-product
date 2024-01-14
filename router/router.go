@@ -8,7 +8,6 @@ import (
 func SetupRoutes(app *fiber.App) {
 	app.Post("/api/product", handler.CreateProduct)
 	app.Get("/api/product", handler.GetProducts)
-	app.Get("/api/product/search", handler.SearchProduct)
 	app.Get("/api/product/:id", handler.GetProduct)
 	app.Put("/api/product/:id", handler.UpdateProduct)
 	app.Delete("/api/product/:id", handler.DeleteProduct)
