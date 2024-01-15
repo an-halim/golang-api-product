@@ -9,7 +9,7 @@ type Product struct {
  gorm.Model
  ID uuid.UUID `gorm:"type:uuid;"`
  Name string    `json:"name"`
- Price int 	`json:"price"`
+ Price float64 	`json:"price"`
  Stock int 	`json:"stock"`
  Image_url string `json:"image_url"`
 }
