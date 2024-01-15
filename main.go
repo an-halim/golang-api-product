@@ -1,8 +1,11 @@
 package main
 
 import (
+	"time"
+
 	"github.com/an-halim/golang-api-product/database"
 	"github.com/an-halim/golang-api-product/router"
+	"github.com/an-halim/golang-api-product/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -21,10 +24,8 @@ func main()  {
 	router.SetupRoutes(app)
 
 	app.Use(func(c *fiber.Ctx) error {
-		return c.Status(404).JSON(fiber.Map{
-			"message": "Invalid route",
-			"data": nil,
-		})
+		tin := time.Now()
+		return utils.Failed(c, 404, "Not Found", tin)
 	})
 
 	app.Listen(":3000")
