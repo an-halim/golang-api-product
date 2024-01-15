@@ -92,10 +92,8 @@ func GetProducts(c *fiber.Ctx) error {
 		pages = total / int64(limit)
 	}
 
-	// get data
-	db.Limit(limit).Offset(offset).Where(Query).Find(&products)
 
-	if err := db.Find(&products, Query).Error; err != nil {
+	if err := db.Limit(limit).Offset(offset).Where(Query).Find(&products).Error; err != nil {
 		utils.Failed(c, 500, err.Error(), tin)
 	}
 	// validate if products is empty
